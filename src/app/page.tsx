@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -66,6 +67,19 @@ const features = [
 ];
 
 export default function Home() {
+  const [stats, setStats] = useState({
+    membres: "150+",
+    generations: "5",
+    evenementsAn: "50+",
+    famille: "100%",
+  })
+
+  useEffect(() => {
+    fetch("/api/stats")
+      .then((r) => r.json())
+      .then((data) => setStats(data))
+      .catch(() => {})
+  }, [])
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -221,11 +235,11 @@ export default function Home() {
             className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
           >
             {[
-              { number: "150+", label: "Membres" },
-              { number: "5", label: "Générations" },
-              { number: "50+", label: "Événements/An" },
-              { number: "100%", label: "Famille" },
-            ].map((stat, index) => (
+              { number: stats.membres, label: "Membres" },
+              { number: stats.generations, label: "Générations" },
+              { number: stats.evenementsAn, label: "Événements/An" },
+              { number: stats.famille, label: "Famille" },
+            ].map((stat) => (
               <motion.div key={stat.label} variants={itemVariants} >
                 <div className="text-3xl sm:text-4xl font-bold text-amber-500 mb-2">
                   {stat.number}
