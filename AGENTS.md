@@ -56,3 +56,26 @@ Avant validation, vérifier :
 
 * Un nouveau membre peut être recommandé par un membre déjà validé.
 * Le nom du parrain apparaît dans la demande d'inscription.
+
+## Module Arbre Généalogique
+
+### Ancêtre fondateur
+L'arbre commence à partir de : **KOUA NANGOIN**.
+Tous les membres doivent être reliés à cet ancêtre.
+
+### Informations par membre
+- Nom et Prénoms, Sexe, Date/Lieu de naissance, Téléphone, Email, Photo
+- Profession, Village, Père, Mère, Conjoint(e), Enfants
+- Statut (Vivant/Décédé), Date décès, Biographie
+
+### Calcul automatique des générations
+Génération 1 = KOUA NANGOIN. Génération N = génération parent + 1.
+
+### Visualisation
+Arbre interactif SVG avec zoom, déplacement, photos, filtres.
+
+### Validation
+Chaque membre ajouté doit être vérifié par le Président ou un Administrateur.
+
+### Recensement
+CRUD complet + import Excel/CSV + export arbre.

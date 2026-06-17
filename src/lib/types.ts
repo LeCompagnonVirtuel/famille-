@@ -208,3 +208,49 @@ export interface Media {
   uploaded_by: string
   created_at: string
 }
+
+export type Sexe = 'homme' | 'femme'
+export type StatutMembreArbre = 'vivant' | 'decede'
+export type StatutValidationMembre = 'en_attente' | 'approuve' | 'rejete' | 'information_demandee'
+
+export interface MembreArbre {
+  id: string
+  nom: string
+  prenom: string
+  sexe: Sexe
+  date_naissance: string
+  lieu_naissance: string | null
+  telephone: string | null
+  email: string | null
+  photo_url: string | null
+  profession: string | null
+  village_origine: string | null
+  pere_id: string | null
+  mere_id: string | null
+  conjoint_id: string | null
+  generation: number
+  statut: StatutMembreArbre
+  date_deces: string | null
+  biographie: string | null
+  est_valide: boolean
+  valide_par: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface RelationFamiliale {
+  id: string
+  membre_id_1: string
+  membre_id_2: string
+  type_relation: 'conjoint' | 'enfant' | 'parent' | 'frere_soeur'
+  created_at: string
+}
+
+export interface MembreArbreAvecParents extends MembreArbre {
+  pere?: MembreArbre | null
+  mere?: MembreArbre | null
+  conjoint?: MembreArbre | null
+  enfants?: MembreArbre[]
+  freresSoeurs?: MembreArbre[]
+  permissions?: string[]
+}
