@@ -35,14 +35,10 @@ const registerSchema = z
     parrain: z.string().optional().or(z.literal("")),
     photo: z
       .any()
-      .optional()
+      .refine((file) => file instanceof File, "Photo de profil requise")
+      .refine((file) => file.size <= MAX_FILE_SIZE, "La photo ne doit pas dépasser 5 Mo")
       .refine(
-        (file) => !file || (file instanceof File && file.size <= MAX_FILE_SIZE),
-        "La photo ne doit pas dépasser 5 Mo"
-      )
-      .refine(
-        (file) =>
-          !file || (file instanceof File && ACCEPTED_IMAGE_TYPES.includes(file.type)),
+        (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
         "Format accepté : JPEG, PNG, WebP ou GIF"
       ),
   })
@@ -331,7 +327,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="photo">Photo de profil</Label>
+              <Label htmlFor="photo">Photo de profil <span className="text-red-500">*</span></Label>
               <div className="flex items-center gap-4">
                 <div className="relative flex-1">
                   <Input
