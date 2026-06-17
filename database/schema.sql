@@ -6,7 +6,21 @@
 -- ============================================================
 DO $$ BEGIN
   CREATE TYPE user_role AS ENUM (
-    'president', 'secretaire_general', 'tresorier', 'communicateur', 'membre'
+    'president', 'secretaire_general', 'tresorier', 'communicateur', 'membre', 'admin'
+  );
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  CREATE TYPE statut_demande AS ENUM (
+    'en_attente', 'approuve', 'rejete', 'information_demandee'
+  );
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
+
+DO $$ BEGIN
+  CREATE TYPE action_validation AS ENUM (
+    'approuve', 'rejete', 'mis_en_attente', 'information_demandee'
   );
 EXCEPTION WHEN duplicate_object THEN NULL;
 END $$;
@@ -95,7 +109,46 @@ CREATE TRIGGER trg_profiles_updated_at
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
 
--- 1.3 annonces
+-- 1.3 demandes_adhesion
+CREATE TABLE IF NOT EXISTS demandes_adhesion (
+  id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  nom               text NOT NULL,
+  prenom            text NOT NULL,
+  email             text,
+  telephone         text NOT NULL,
+  date_naissance    date NOT NULL,
+  lien_parente      text NOT NULL,
+  village_origine   text NOT NULL,
+  photo_url         text,
+  parrain_id        uuid REFERENCES profiles(id) ON DELETE SET NULL,
+  statut            statut_demande NOT NULL DEFAULT 'en_attente',
+  traitee_par       uuid REFERENCES profiles(id) ON DELETE SET NULL,
+  commentaire_admin text,
+  created_at        timestamptz NOT NULL DEFAULT now(),
+  updated_at        timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_demandes_statut ON demandes_adhesion(statut);
+CREATE INDEX IF NOT EXISTS idx_demandes_created ON demandes_adhesion(created_at);
+
+CREATE TRIGGER trg_demandes_adhesion_updated_at
+  BEFORE UPDATE ON demandes_adhesion
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- 1.4 historique_validations
+CREATE TABLE IF NOT EXISTS historique_validations (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  demande_id  uuid NOT NULL REFERENCES demandes_adhesion(id) ON DELETE CASCADE,
+  action      action_validation NOT NULL,
+  auteur_id   uuid NOT NULL REFERENCES profiles(id) ON DELETE SET NULL,
+  commentaire text,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_histo_demande ON historique_validations(demande_id);
+
+-- 1.5 annonces
 CREATE TABLE IF NOT EXISTS annonces (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   titre       text NOT NULL,

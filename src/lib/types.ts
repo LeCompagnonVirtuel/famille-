@@ -18,6 +18,37 @@ export interface Profile {
   updated_at: string
 }
 
+export type StatutDemande = 'en_attente' | 'approuve' | 'rejete' | 'information_demandee'
+
+export interface DemandeAdhesion {
+  id: string
+  nom: string
+  prenom: string
+  email: string | null
+  telephone: string
+  date_naissance: string
+  lien_parente: string
+  village_origine: string
+  photo_url: string | null
+  parrain_id: string | null
+  parrain?: Profile
+  statut: StatutDemande
+  traitee_par: string | null
+  traitee_par_profile?: Profile
+  commentaire_admin: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface HistoriqueValidation {
+  id: string
+  demande_id: string
+  action: 'approuve' | 'rejete' | 'mis_en_attente' | 'information_demandee'
+  auteur_id: string
+  commentaire: string | null
+  created_at: string
+}
+
 export interface Annonce {
   id: string
   titre: string

@@ -17,6 +17,9 @@ type Permission =
   | 'manage_documents'
   | 'manage_evenements'
   | 'manage_galerie'
+  | 'validate_memberships'
+  | 'suspend_members'
+  | 'manage_admins'
 
 const rolePermissions: Record<Role, Permission[]> = {
   president: [
@@ -24,12 +27,12 @@ const rolePermissions: Record<Role, Permission[]> = {
     'manage_tresorerie', 'manage_communications', 'manage_secretariat',
     'view_finances', 'create_annonces', 'comment_annonces', 'create_suggestions',
     'participate_votes', 'view_documents', 'manage_documents', 'manage_evenements',
-    'manage_galerie',
+    'manage_galerie', 'validate_memberships', 'suspend_members', 'manage_admins',
   ],
   secretaire_general: [
     'manage_secretariat', 'manage_documents', 'view_documents', 'view_finances',
     'create_annonces', 'comment_annonces', 'create_suggestions', 'participate_votes',
-    'manage_evenements', 'manage_galerie',
+    'manage_evenements', 'manage_galerie', 'validate_memberships',
   ],
   tresorier: [
     'manage_tresorerie', 'view_finances', 'view_documents',
