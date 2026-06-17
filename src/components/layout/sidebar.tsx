@@ -116,7 +116,7 @@ export function Sidebar({ user, onLogout, mobileOpen: controlledOpen, onMobileTo
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                    "group flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-medium transition-colors md:py-2.5",
                     isActive
                       ? "border-l-4 border-amber-600 bg-emerald-700/60 text-white"
                       : "border-l-4 border-transparent text-emerald-100 hover:bg-emerald-700/40 hover:text-white",
@@ -219,7 +219,7 @@ export function Sidebar({ user, onLogout, mobileOpen: controlledOpen, onMobileTo
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 z-40 bg-black md:hidden"
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
             />
             <motion.aside
               initial={{ x: "-100%" }}
@@ -232,7 +232,7 @@ export function Sidebar({ user, onLogout, mobileOpen: controlledOpen, onMobileTo
                 <button
                   type="button"
                   onClick={() => setMobileOpen(false)}
-                  className="absolute right-3 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700 text-white hover:bg-emerald-600"
+                  className="absolute right-4 top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700 text-white shadow-md hover:bg-emerald-600"
                 >
                   <X className="h-4 w-4" />
                 </button>

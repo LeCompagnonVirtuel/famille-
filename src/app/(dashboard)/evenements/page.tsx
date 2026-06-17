@@ -130,8 +130,8 @@ export default function EvenementsPage() {
         </Button>
       </div>
 
-      <div className="flex flex-wrap items-center gap-4">
-        <div className="flex items-center gap-2 rounded-lg bg-zinc-100 p-1">
+      <div className="flex items-center gap-4">
+        <div className="flex shrink-0 items-center gap-2 rounded-lg bg-zinc-100 p-1">
           <Button
             variant={viewMode === "calendar" ? "default" : "ghost"}
             size="sm"
@@ -148,14 +148,15 @@ export default function EvenementsPage() {
             Liste
           </Button>
         </div>
-        <div className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-zinc-500" />
+        <div className="flex items-center gap-2 overflow-x-auto">
+          <Filter className="h-4 w-4 shrink-0 text-zinc-500" />
           {EVENT_TYPES.map((t) => (
             <Button
               key={t.value}
               variant={typeFilter === t.value ? "default" : "outline"}
               size="sm"
               onClick={() => setTypeFilter(t.value)}
+              className="shrink-0"
             >
               {t.label}
             </Button>

@@ -151,7 +151,7 @@ export default function AnnonceDetailPage() {
             Retour
           </Link>
         </Button>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button variant="outline" size="sm">
             <Edit className="mr-2 h-4 w-4" />
             Modifier
@@ -183,7 +183,7 @@ export default function AnnonceDetailPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <article className="rounded-lg border border-zinc-200 bg-white p-8 shadow-sm">
+        <article className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm sm:p-6 lg:p-8">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-3">

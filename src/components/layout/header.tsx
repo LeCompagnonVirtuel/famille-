@@ -203,10 +203,11 @@ export function Header({
       <AnimatePresence>
         {searchOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="absolute left-0 right-0 top-16 border-b border-zinc-200 bg-white px-4 pb-3 pt-2 sm:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="absolute left-0 right-0 top-16 overflow-hidden border-b border-zinc-200 bg-white px-4 pb-3 pt-2 sm:hidden"
           >
             <div className="relative">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
